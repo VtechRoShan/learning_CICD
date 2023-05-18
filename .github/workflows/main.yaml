@@ -12,7 +12,7 @@ jobs:
         run: echo "Hello, Who is there to push on my Repository"
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Somebody Push
         run: echo "Let me know who performed the Push Event"
