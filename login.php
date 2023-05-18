@@ -17,7 +17,7 @@
           <input type="text" name="email" placeholder="Enter your email" required>
         </div>
         <div class="field input">
-          <label>Password</label>
+          <label>Password Enter Safely</label>
           <input type="password" name="password" placeholder="Enter your password" required>
           <i class="fas fa-eye"></i>
         </div>
