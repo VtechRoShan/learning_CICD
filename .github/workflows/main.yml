@@ -32,16 +32,6 @@ jobs:
 
       - name: Install PHP dependency Manager
         uses: ramsey/composer-install@v2
-
-  Install_Dependencies:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install PHP Dependencies
-        run: composer install
-
-      - name: Install JS Dependencies
-        run: npm install
-
   Hello:
     runs-on: ubuntu-latest
     steps:
