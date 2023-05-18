@@ -1,51 +1,49 @@
 name: Test Job
 
-on: 
+on:
   push:
     branches: [main]
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Print hello On Push
-      run: echo "Hello, Who is there to push on my Repository"
+      - name: Print hello On Push
+        run: echo "Hello, Who is there to push on my Repository"
 
   build:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
-    - name: Somebody Push
-    - run: echo "Let, me know who perform Push Event"
+      - name: Somebody Push
+        run: echo "Let me know who performed the Push Event"
 
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with: 
-        php-version: 8.2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with: 
+          php-version: 8.2
 
-    - name: Install Node.Js
-      ## Node Js is require for laravel compiling and building
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20.x
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
 
-    - name: Install PHP dependency Manager
-      uses: "ramsey/composer-install@v2"
+      - name: Install PHP dependency Manager
+        uses: ramsey/composer-install@v2
 
   Install_Dependencies:
-      runs-on: ubuntu-lastest
-      steps:
+    runs-on: ubuntu-latest
+    steps:
       - name: Install PHP Dependencies
         run: composer install
 
-      - name: Install Js Dependencies
+      - name: Install JS Dependencies
         run: npm install
+
   Hello:
-    runs-on: ubuntu-lastest
+    runs-on: ubuntu-latest
     steps:
-    - name: Does it reach upto here
-      run: echo "Okie Catch it" 
-    
+      - name: Does it reach up to here?
+        run: echo "Okie Catch it"
