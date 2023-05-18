@@ -6,7 +6,7 @@ on:
 
 jobs:
   my-job:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Print hello On Push
         run: echo "Hello, Who is there to push on my Repository"
@@ -25,7 +25,7 @@ jobs:
         with: 
           php-version: 8.2
   Hello:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Does it reach up to here?
         run: echo "Okie Catch it"
