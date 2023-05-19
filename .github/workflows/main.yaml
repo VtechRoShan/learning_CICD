@@ -24,7 +24,7 @@ jobs:
     - name: SSH
       run: |
         echo "${{secrets.IMROSHAN_AUTHKEY_VRG}}" >> imroshan_authkey_vrg.pem
-        chmod 400 imroshan_authkey_vrg.pem
+        chmod 600 imroshan_authkey_vrg.pem
   SSH-ing:
     runs-on: ubuntu-latest
     needs: SSH_Setup
