@@ -30,6 +30,11 @@ jobs:
     needs: SSH_Setup
 
     steps:
+    - name: SSH
+      run: |
+        echo "${{secrets.IMROSHAN_AUTHKEY_VRG}}" >> imroshan_authkey_vrg.pem
+        chmod 600 imroshan_authkey_vrg.pem
+    
     - name: Checkout code
       uses: actions/checkout@v2
       
