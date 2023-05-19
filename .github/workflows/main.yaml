@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > imroshan_authkey_vrg.pem
           chmod 400 imroshan_authkey_vrg.pem
-          scp -i imroshan_authkey_vrg.pem \
+          sudo scp -i imroshan_authkey_vrg.pem \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
             -r ./* ubuntu@18.212.85.125:/home/ubuntu/
