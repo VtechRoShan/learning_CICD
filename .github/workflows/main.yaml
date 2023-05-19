@@ -31,4 +31,4 @@ jobs:
           scp -i imroshan_authkey_vrg.pem \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -r ./* ${{ secrets.INSTANCE_USER }}@${{ secrets.INSTANCE_IP }}:/home/ubuntu/
+            -r ./* ubuntu@18.212.85.125:/home/ubuntu/
