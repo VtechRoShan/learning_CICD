@@ -35,10 +35,9 @@ jobs:
         run: |
           sudo rm -rf /var/www/html/*
 
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: '/var/www/html/'
+      - name: Move code to /var/www/html/
+        run: |
+          sudo mv ./learning_CICD/* /var/www/html/
 
   Hello:
     runs-on: ubuntu-latest
