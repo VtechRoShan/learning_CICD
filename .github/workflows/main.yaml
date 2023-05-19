@@ -6,26 +6,43 @@ on:
 
 jobs:
   my-job:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+
     steps:
       - name: Print hello On Push
         run: echo "Hello, Who is there to push on my Repository"
 
-  build:
-    runs-on: self-hosted
+  SW_Configs:
+    runs-on: ubuntu-latest
+    needs: my-job
     steps:
-      - name: Somebody Push
-        run: echo "Let me know who performed the Push Event"
-
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with: 
           php-version: 8.2
-  Hello:
-    runs-on: self-hosted
+      - name: Setup Apache
+        run: |
+          sudo apt install apache2 -y
+
+  build:
+    runs-on: ubuntu-latest
+    needs: SW_Configs
     steps:
-      - name: Does it reach up to here?
-        run: echo "Okie Catch it"
+      - name: Somebody Push
+        run: echo "Let me know who performed the Push Event"
+
+      - name: Remove content from /html/
+        run: |
+          sudo rm -rf /var/www/html/*
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: '/var/www/html/'
+
+  Hello:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Does it reach up to here
+        run: echo "Okay, catch it"
