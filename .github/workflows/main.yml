@@ -1,22 +1,39 @@
-
-name: MariaDB CI/CD
-
+name: Test Job
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+    branches: [main]
 jobs:
-  build:
+  Test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Does it reach up to here
+        run: echo "Okay, catch it, Someone pushed"
 
-      - name: Set up MariaDB
-        run: |
-          sudo apt-get install mariadb-server -y
+  Deploy:
+    runs-on: ubuntu-latest
+    needs: Test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.IMROSHAN_AUTHKEY_VRG }}" >> imroshan_authkey_vrg.pem
+        chmod 600 imroshan_authkey_vrg.pem
+    - name: Copy files to EC2 instance
+      run: |
+            scp -i imroshan_authkey_vrg.pem \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -r ./* ubuntu@54.157.237.164:/home/ubuntu
+
+    - name: Install Apache on Server
+      run: |
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg ubuntu@54.157.237.164 'sudo apt-get install -y apache2 '
+
+    - name: Install MariaDB
+      run: |
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg ubuntu@54.157.237.164 sudo apt-get update -y && sudo apt-get install mariadb-server -y'
+
+
