@@ -30,4 +30,4 @@ jobs:
             -r ./* ubuntu@54.157.237.164:/home/ubuntu
     - name: Install Apache on Server
       run: |
-          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg ubuntu@54.157.237.164 'sudo apt-get install -y apache2'
+        ssh -i imroshan_authkey_vrg -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt-get install -y apache2'
