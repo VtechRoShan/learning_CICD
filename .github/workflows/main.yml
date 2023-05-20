@@ -27,4 +27,4 @@ jobs:
             scp -i imroshan_authkey_vrg.pem \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -r ./* ubuntu@54.157.237.164:/home/
+            -r ./* ubuntu@54.157.237.164:/home/ubuntu
