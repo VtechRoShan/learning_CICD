@@ -45,3 +45,8 @@ jobs:
           Y
           Y
           EOF'
+          
+    - name: Start MySQL service
+      run: |
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo systemctl start mysql'
+
