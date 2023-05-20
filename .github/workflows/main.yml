@@ -1,27 +1,22 @@
-name: Install and Configure MySQL
+
+name: MariaDB CI/CD
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install MySQL
+      - name: Set up MariaDB
         run: |
-          sudo apt-get install -y mysql-server
-          
-      - name: Install MySQL Client
-        run: |
-          sudo apt-get install -y mysql-client
-
-      - name: Root Password
-        run: |
-          'sudo mysql -e "ALTER USER '\''root'\''@'\''localhost'\'' IDENTIFIED WITH mysql_native_password BY '\''ugra3194'\''; exit;"'
-
+          sudo apt-get install mariadb-server -y
