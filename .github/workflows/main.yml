@@ -34,7 +34,7 @@ jobs:
         
     - name: Upgrade
       run: |
-        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt update -y && sudo apt upgrade -y'
+        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt update -y && sudo apt upgrade -y && sudo apt-get install -f'
     - name: Install MariaDB
       run: |
         ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt-get install -y mysql-server mariadb-server mariadb-client'
