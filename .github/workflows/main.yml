@@ -1,40 +1,32 @@
-name: Test Job
+name: Install and Configure MySQL
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
 jobs:
-  Test:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Does it reach up to here
-        run: echo "Okay, catch it, Someone pushed"
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  Deploy:
-    runs-on: ubuntu-latest
-    needs: Test
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Install MySQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-server
 
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.IMROSHAN_AUTHKEY_VRG }}" >> imroshan_authkey_vrg.pem
-        chmod 600 imroshan_authkey_vrg.pem
-
-    - name: Copy files to EC2 instance
-      run: |
-            scp -i imroshan_authkey_vrg.pem \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -r ./* ubuntu@54.157.237.164:/home/ubuntu
-    - name: Install Apache on Server
-      run: |
-        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt-get install -y apache2'
-        
-    - name: Upgrade
-      run: |
-        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt update -y && sudo apt upgrade -y && sudo apt-get install -f'
-    - name: Install MariaDB
-      run: | 
-        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt install -y mysql-server'
+      - name: Configure MySQL
+        run: |
+          sudo mysql_secure_installation <<EOF
+          
+          Y
+          your_root_password
+          your_root_password
+          Y
+          Y
+          Y
+          Y
+          EOF
