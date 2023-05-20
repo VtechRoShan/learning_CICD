@@ -23,9 +23,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          node-version: '16'
-
+        
       - name: Copy file to EC2 instance
         run: |
           echo "$SSH_PRIVATE_KEY" > imroshan_authkey_vrg.pem
