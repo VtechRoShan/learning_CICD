@@ -33,4 +33,4 @@ jobs:
         ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt-get install -y apache2'
     - name: Install MariaDB
       run: |
-        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt install -y mysql-server mariadb-server mariadb-client'
+        ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt-get install -y mysql-server mariadb-server mariadb-client'
