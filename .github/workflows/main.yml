@@ -34,4 +34,4 @@ jobs:
 
     - name: Install MariaDB
       run: |
-          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 sudo apt-get update -y && sudo apt-get install mariadb-server -y'
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt-get update -y && sudo apt-get install mariadb-server -y'
