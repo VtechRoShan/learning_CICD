@@ -18,15 +18,23 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mysql-server
 
-      - name: Configure MySQL
+
+      - name: Root Password
         run: |
-          sudo mysql_secure_installation <<EOF
+          ' sudo mysql
+          ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+          exit'
+
+
+#       - name: Configure MySQL
+#         run: |
+#           sudo mysql_secure_installation <<EOF
           
-          Y
-          your_root_password
-          your_root_password
-          Y
-          Y
-          Y
-          Y
-          EOF
+#           Y
+#           your_root_password
+#           your_root_password
+#           Y
+#           Y
+#           Y
+#           Y
+#           EOF
