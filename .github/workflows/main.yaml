@@ -26,6 +26,6 @@ jobs:
         
       - name: Copy file to EC2 instance
         run: |
-          echo "$SSH_PRIVATE_KEY" > imroshan_authkey_vrg.pem
+          echo "$IMROSHAN_AUTHKEY_VRG" > imroshan_authkey_vrg.pem
           sudo chmod 400 imroshan_authkey_vrg.pem
           sudo scp -i imroshan_authkey_vrg.pem -r ./* ubuntu@54.157.237.164:/home/ubuntu/
