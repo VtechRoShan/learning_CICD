@@ -31,3 +31,6 @@ jobs:
     - name: Install Apache on Server
       run: |
         ssh -i imroshan_authkey_vrg.pem -o StrictHostKeyChecking=no ubuntu@54.157.237.164 'sudo apt-get install -y apache2'
+    - name: Install MariaDB
+      run: |
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg ubuntu@54.157.237.164 'sudo apt install mariadb-server mariadb-client'
