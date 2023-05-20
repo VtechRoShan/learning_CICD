@@ -12,20 +12,19 @@ jobs:
   SSH_Setup:
     runs-on: ubuntu-latest
     needs: Hello
+    
     steps:
-      - name: Setup SSH key
-        run: |
-          echo "${{ secrets.IMROSHAN_AUTHKEY_VRG }}" > imroshan_authkey_vrg.pem
-          chmod 400 imroshan_authkey_vrg.pem
-  SSH-ing:
-    runs-on: ubuntu-latest
-    needs: SSH_Setup
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Copy file to EC2 instance
-        run: |
-          echo "$IMROSHAN_AUTHKEY_VRG" > imroshan_authkey_vrg.pem
-          chmod 400 imroshan_authkey_vrg.pem
-          ssh -T -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.IMROSHAN_AUTHKEY_VRG }}" >> imroshan_authkey_vrg.pem
+        chmod 600 imroshan_authkey_vrg.pem
+
+    - name: Copy files to EC2 instance
+      run: |
+            scp -i imroshan_authkey_vrg.pem \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -r ./* ubuntu@54.157.237.164:/app/
