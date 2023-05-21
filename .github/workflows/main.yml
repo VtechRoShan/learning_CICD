@@ -60,14 +60,14 @@ jobs:
             send \"Y\r\"
             expect eof
           "'
-           
-    - name: Execute MySQL commands
+
+    - name: Create Database and User
       run: |
         ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
           sudo mysql -e "
-            CREATE USER '\''ugra'\''@'\''localhost'\'' IDENTIFIED BY '\''ugra3194'\'';
+            CREATE USER IF NOT EXISTS '\''ugra'\''@'\''localhost'\'' IDENTIFIED BY '\''ugra3194'\'';
             CREATE DATABASE IF NOT EXISTS chatapp;
-            GRANT ALL PRIVILEGES ON new_db.* TO '\''new_user'\''@'\''localhost'\'';
+            GRANT ALL PRIVILEGES ON chatapp.* TO '\''ugra'\''@'\''localhost'\'';
             FLUSH PRIVILEGES;
             exit;
           "
