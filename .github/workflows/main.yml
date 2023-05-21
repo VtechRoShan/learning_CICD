@@ -94,3 +94,18 @@ jobs:
             );
           "
         '
+
+    - name: Create Message table
+      run: |
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+          sudo mysql -e "
+            USE chatapp;
+            CREATE TABLE messages (
+              msg_id int(11) NOT NULL AUTO_INCREMENT,
+              incoming_msg_id int(255) NOT NULL,
+              outgoing_msg_id int(255) NOT NULL,
+              msg varchar(1000) NOT NULL,
+              PRIMARY KEY(user_id)
+            );
+          "
+        ' 
