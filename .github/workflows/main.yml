@@ -37,7 +37,10 @@ jobs:
     - name: Run mysql_secure_installation
       run: |
         ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
-        expect -c "
+          sudo apt update
+          sudo apt install -y expect
+
+          expect -c "
             spawn sudo mysql_secure_installation
             expect \"Enter current password for root (enter for none):\"
             send \"\r\"
@@ -56,7 +59,7 @@ jobs:
             expect \"Reload privilege tables now? \[Y/n\]:\"
             send \"Y\r\"
             expect eof
-        "'
+          "'
           
     - name: Start MySQL service
       run: |
