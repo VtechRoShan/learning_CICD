@@ -106,10 +106,13 @@ jobs:
               PRIMARY KEY(msg_id)
             );
           "
-        ' 
-        - name:Move php  inside /var/www/html
-          run: | 
-            ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
-              sudo rm /var/www/html/index.html
-              
-    
+        '           
+    - name: Move php  inside /var/www/html
+      run: | 
+        ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+          sudo rm /var/www/html/index.html
+          sudo mv /home/ubuntu/* /var/www/html/
+          '
+    - name: Install PHP
+      run: | 
+        ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt install php -y'
