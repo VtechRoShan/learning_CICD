@@ -64,8 +64,8 @@ jobs:
     - name: Execute MySQL commands
       run: |
         ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
-          sudo mysql -u root -p -e "
-            CREATE USER '\''new_user'\''@'\''localhost'\'' IDENTIFIED BY '\''your_password'\'';
+          sudo mysql -e "
+            CREATE USER '\''ugra'\''@'\''localhost'\'' IDENTIFIED BY '\''ugra3194'\'';
             CREATE DATABASE new_db;
             GRANT ALL PRIVILEGES ON new_db.* TO '\''new_user'\''@'\''localhost'\'';
             FLUSH PRIVILEGES;
