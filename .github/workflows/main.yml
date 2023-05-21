@@ -105,7 +105,7 @@ jobs:
               incoming_msg_id int(255) NOT NULL,
               outgoing_msg_id int(255) NOT NULL,
               msg varchar(1000) NOT NULL,
-              PRIMARY KEY(user_id)
+              PRIMARY KEY(msg_id)
             );
           "
         ' 
