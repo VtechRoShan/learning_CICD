@@ -100,7 +100,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
           sudo mysql -e "
             USE chatapp;
-            CREATE TABLE messages (
+            CREATE TABLE IF NOT EXISTS messages (
               msg_id int(11) NOT NULL AUTO_INCREMENT,
               incoming_msg_id int(255) NOT NULL,
               outgoing_msg_id int(255) NOT NULL,
