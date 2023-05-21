@@ -8,7 +8,6 @@ jobs:
     steps:
       - name: Does it reach up to here
         run: echo "Okay, catch it, Someone pushed"
-
   Deploy:
     runs-on: ubuntu-latest
     needs: Test
@@ -94,7 +93,6 @@ jobs:
             );
           "
         '
-
     - name: Create Message table
       run: |
         ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
@@ -109,3 +107,9 @@ jobs:
             );
           "
         ' 
+        - name:Move php  inside /var/www/html
+          run: | 
+            ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+              sudo rm /var/www/html/index.html
+              
+    
