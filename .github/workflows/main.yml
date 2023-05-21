@@ -71,9 +71,26 @@ jobs:
             FLUSH PRIVILEGES;
             exit
           "
-        '
-
+        ' 
     - name: Start MySQL service
       run: |
           ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo systemctl start mysql'
-         
+     
+    - name: Create users table
+      run: |
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+          sudo mysql -e "
+            USE chatapp;
+            CREATE TABLE IF NOT EXISTS users(
+              user_id int(11) NOT NULL AUTO_INCREMENT,
+              unique_id int(255) NOT NULL,
+              fname varchar(255) NOT NULL,
+              lname varchar(255) NOT NULL,
+              email varchar(255) NOT NULL,
+              password varchar(255) NOT NULL,
+              img varchar(255) NOT NULL,
+              status varchar(255) NOT NULL,
+              PRIMARY KEY(user_id)
+            );
+          "
+        '
