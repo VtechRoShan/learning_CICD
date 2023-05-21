@@ -25,20 +25,18 @@ jobs:
             scp -i imroshan_authkey_vrg.pem \
             -o StrictHostKeyChecking=no \
             -o UserKnownHostsFile=/dev/null \
-            -r ./* ubuntu@54.157.237.164:/home/ubuntu
+            -r ./* ubuntu@52.91.16.27:/home/ubuntu
     - name: Install Apache on Server
       run: |
-          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt-get install -y apache2 '
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 'sudo apt-get install -y apache2 '
     - name: Install MariaDB
       run: |
-          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt-get update -y && sudo apt-get install mariadb-server -y'
-
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 'sudo apt-get update -y && sudo apt-get install mariadb-server -y'
     - name: Run mysql_secure_installation
       run: |
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 '
           sudo apt update
           sudo apt install -y expect
-
           expect -c "
             spawn sudo mysql_secure_installation
             expect \"Enter current password for root (enter for none):\"
@@ -59,10 +57,9 @@ jobs:
             send \"Y\r\"
             expect eof
           "'
-
     - name: Create Database and User
       run: |
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 '
           sudo mysql -e "
             CREATE USER IF NOT EXISTS '\''ugra'\''@'\''localhost'\'' IDENTIFIED BY '\''ugra3194'\'';
             CREATE DATABASE IF NOT EXISTS chatapp;
@@ -73,11 +70,11 @@ jobs:
         ' 
     - name: Start MySQL service
       run: |
-          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo systemctl start mysql'
+          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 'sudo systemctl start mysql'
      
     - name: Create users table
       run: |
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 '
           sudo mysql -e "
             USE chatapp;
             CREATE TABLE IF NOT EXISTS users(
@@ -95,7 +92,7 @@ jobs:
         '
     - name: Create Message table
       run: |
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 '
           sudo mysql -e "
             USE chatapp;
             CREATE TABLE IF NOT EXISTS messages (
@@ -109,10 +106,11 @@ jobs:
         '           
     - name: Move php  inside /var/www/html
       run: | 
-        ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+        ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 '
           sudo rm /var/www/html/index.html
           sudo mv /home/ubuntu/* /var/www/html/
           '
     - name: Install PHP
       run: | 
-        ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt install php -y'
+        ssh -o StrictHostChecking=no -i imroshan_authkey_vrg.pem ubuntu@52.91.16.27 'sudo apt install php -y'
+
