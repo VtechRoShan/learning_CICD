@@ -34,20 +34,33 @@ jobs:
       run: |
           ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt-get update -y && sudo apt-get install mariadb-server -y'
 
-    - name: Configure MariaDB
+    - name: Run mysql_secure_installation
       run: |
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "UPDATE mysql.user SET Password = PASSWORD('\'ugra3194\'') WHERE User = '\'root\''"'
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "DELETE FROM mysql.user WHERE User='\''root'\'' AND Host NOT IN ('\''localhost'\'', '\''127.0.0.1'\'', '\''::1'\'')"'
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "DELETE FROM mysql.user WHERE User=''\''"'
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "DELETE FROM mysql.db WHERE Db='\''test'\'' OR Db='\''test\\_%'\''"'
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "FLUSH PRIVILEGES"'
-
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 '
+        expect -c "
+            spawn sudo mysql_secure_installation
+            expect \"Enter current password for root (enter for none):\"
+            send \"\r\"
+            expect \"Set root password? \[Y/n\]:\"
+            send \"Y\r\"
+            expect \"New password:\"
+            send \"Set-your-new-password\r\"
+            expect \"Re-enter new password:\"
+            send \"Set-your-new-password\r\"
+            expect \"Remove anonymous users? \[Y/n\]:\"
+            send \"Y\r\"
+            expect \"Disallow root login remotely? \[Y/n\]:\"
+            send \"Y\r\"
+            expect \"Remove test database and access to it? \[Y/n\]:\"
+            send \"Y\r\"
+            expect \"Reload privilege tables now? \[Y/n\]:\"
+            send \"Y\r\"
+            expect eof
+        "'
+          
     - name: Start MySQL service
       run: |
           ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo systemctl start mysql'
           
-    - name: Create MySQL Database
-      run: |
-        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'mysql -h 54.157.237.164 -u root - ugra3194 -e "CREATE DATABASE chatapp;" '
 
 
