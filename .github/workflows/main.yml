@@ -34,18 +34,14 @@ jobs:
       run: |
           ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo apt-get update -y && sudo apt-get install mariadb-server -y'
 
-    - name: Configure MySQL
+    - name: Configure MariaDB
       run: |
-          ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mysql_secure_installation <<EOF
-          Y
-          ugra3194
-          ugra3194
-          Y
-          Y
-          Y
-          Y
-          EOF'
-          
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "UPDATE mysql.user SET Password = PASSWORD('\'ugra3194\'') WHERE User = '\'root\''"'
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "DELETE FROM mysql.user WHERE User='\''root'\'' AND Host NOT IN ('\''localhost'\'', '\''127.0.0.1'\'', '\''::1'\'')"'
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "DELETE FROM mysql.user WHERE User=''\''"'
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "DELETE FROM mysql.db WHERE Db='\''test'\'' OR Db='\''test\\_%'\''"'
+        ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo mariadb -e "FLUSH PRIVILEGES"'
+
     - name: Start MySQL service
       run: |
           ssh -o StrictHostKeyChecking=no -i imroshan_authkey_vrg.pem ubuntu@54.157.237.164 'sudo systemctl start mysql'
