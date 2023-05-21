@@ -69,7 +69,7 @@ jobs:
             CREATE DATABASE IF NOT EXISTS chatapp;
             GRANT ALL PRIVILEGES ON chatapp.* TO '\''ugra'\''@'\''localhost'\'';
             FLUSH PRIVILEGES;
-            exit;
+            exit
           "
         '
 
